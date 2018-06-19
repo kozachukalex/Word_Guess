@@ -6,13 +6,25 @@
 }
 
 html{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url(../images/backgroundStreet.jpg);
+    color: #fff;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 18px;
+
 }
 
 header{
+    background: black;
     text-align: center;
-    margin: 40px 0;
+    padding: 20px;
+    margin-bottom: 40px;
+    border-bottom: 10px gray solid;
 }
 
 button {
@@ -33,11 +45,14 @@ span{
 }
 
 .col-md-6{
-    border: 3px solid black;
+    background: black;
+    opacity: .9;
+    border: 3px solid gray;
     text-align: center;
     padding: 40px 30px;
 }
 
-#picture{
+#pictureid{
+    height: 283px;
     width: 100%;
 }
