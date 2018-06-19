@@ -26,7 +26,7 @@ function nextSong() {                                               //tracks W t
     w++;
     for (d = 0; d < chosenSong.length; d++) {
         if (chosenSong[d] === " ") {
-            correctLetters.push(chosenSong[d]);
+            correctLetters.push("&nbsp");
         }
         else {
             correctLetters.push("_");
@@ -36,7 +36,7 @@ function nextSong() {                                               //tracks W t
 };
 function updateBoard() {                                            //keeps track of wins, could have alternatively done a "return wins;" but practicing function calling
     document.getElementById("wins").innerText = wins;
-    document.getElementById("correctLetters").innerText = correctLetters.join(" ");
+    document.getElementById("correctLetters").innerHTML = correctLetters.join(" ");
     document.getElementById("guessesRemaining").innerText = guessesRemaining;
     document.getElementById("wrongLetters").innerText = wrongLetters;
 }
