@@ -4,56 +4,54 @@ var userChoice = ["a", "b", "c", "d", "e", "f", "g", "h",
 
 var wins = 0
 var g = 13
-var guessesRemaining = g                //set guesses remaining to g to more easily reset upon conditions
+var guessesRemaining = g                                                //set guesses remaining to g to more easily reset upon conditions
 var correctLetters = [];
 var lettersGuessed = [];
 var wrongLetters = [];
 var song = ["Big Girls Dont Cry", "Working My Way Back To You", "My Eyes Adored You", "Walk Like A Man", "A Sunday Kind of Love", ""]
 var chosenSong;
 var w = 0;
-var spaces = 0;
-//variable that tracks where I am in the song array
-function clear() {                                                  //computer starts with first song, and when guesses run out or user is correct, moves to next 
+
+
+function clear() {                                                      //clear function to reset after running out of guesses or being correct
     guessesRemaining = g
-    document.getElementById("dashedLetters").innerText = " ";
+    correctLetters = [];
     lettersGuessed = [];
     wrongLetters = [];
-    spaces = 0;
-    return guessesRemaining, dashedLetters, lettersGuessed, wrongLetters, spaces;
+    return guessesRemaining, correctLetters, lettersGuessed, wrongLetters;
 }
-function nextSong() {
-
-    console.log(w);
-    chosenSong = song[w];
+function nextSong() {                                               //tracks W to always give the next song in array (can easily change to random)
+    chosenSong = song[w];                                               //also creates dashes in place of letters of the chosenSong
     chosenSong = chosenSong.toLowerCase();
-    console.log(chosenSong);
     w++;
-    console.log(w);
     for (d = 0; d < chosenSong.length; d++) {
-        console.log(d)
         if (chosenSong[d] === " ") {
-            document.getElementById("dashedLetters").innerText += "-";
-            spaces++;
+            correctLetters.push(chosenSong[d]);
         }
         else {
-            document.getElementById("dashedLetters").innerText += " _ ";
+            correctLetters.push("_");
         }
     }
-    return w, chosenSong, spaces;
+    return w, chosenSong,correctLetters;
 };
 
-function updateBoard() {
+function updateBoard() {                                          //keeps track of wins, could have alternatively done a "return wins;" but practicing function calling
     document.getElementById("wins").innerText = wins;
+    document.getElementById("correctLetters").innerText = correctLetters.join(" ");
     document.getElementById("guessesRemaining").innerText = guessesRemaining;
     document.getElementById("wrongLetters").innerText = wrongLetters;
 }
 
+function next(){ 
+    clear();
+    nextSong();
+    updateBoard();  
 
+}
 
-
-updateBoard();
-clear();
+clear();                                                         //calls initial functions to prepare the game
 nextSong();
+updateBoard(); 
 
 
 
@@ -75,9 +73,7 @@ document.onkeyup = function (event) {
             for (c = 0; c < chosenSong.length; c++) {               //loop the chosenSong to verify if userGuess input matches any letter
                 if (userGuess === chosenSong[c]) {
                     lettersGuessed.push(userGuess);
-                    correctLetters = userGuess + correctLetters;
-                    dashedLetters[c] = userGuess;                   //correctLetters is an array that will receive correct letters, need to figure out how to
-                    console.log(correctLetters);                    //replace the dashes with the correct letter, in the correct order
+                    correctLetters.splice(c, 1,  userGuess);
                 }
             }
 
@@ -87,24 +83,23 @@ document.onkeyup = function (event) {
                 guessesRemaining--;
             }
         }
-        else {
+        else {                                                      //notifies player if select non-alphabet option
             alert("You must select a letter of the alphabet to play!")
         }
-        if ((correctLetters.length + spaces) === chosenSong.length) {
+        if (correctLetters.indexOf("_") === -1) {               //checks if all correct letters have been found +  no _ remain
             wins++;
-            alert("The answer is:" + chosenSong);
-            clear();
-            nextSong();
+            chosenSong = chosenSong.toUpperCase();
+            document.getElementById("answer").innerHTML ="The answer is: <br><br><br>"  + "<p style='font-size: 48px;'>" + chosenSong + "</p>";                                               // want to change to a button that user clicks to move to next song
+
         }
-        if (guessesRemaining === 0) {
+        if (guessesRemaining === 0) {                                   //when guesses = 0, alerts user and gives answer, resets game for next song
             alert("Out of guesses! The correct answer was:" + chosenSong);
-            clear();
-            nextSong();
+
         }
         updateBoard();
     }
     if (wins === 5) {
         alert("Well done! You guessed them all!")
     }
-};
 
+};

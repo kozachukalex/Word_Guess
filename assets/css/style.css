@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+html{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+
+header{
+    text-align: center;
+    margin: 40px 0;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+h4{
+    margin: 50px 0;
+}
+
+span{
+    margin-top: 50px;
+    display: block;
+    white-space: nowrap;
+}
+
+.col-md-6{
+    border: 3px solid black;
+    text-align: center;
+    padding: 40px 30px;
+}
+
+#picture{
+    width: 100%;
+}
